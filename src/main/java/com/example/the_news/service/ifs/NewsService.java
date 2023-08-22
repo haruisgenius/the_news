@@ -18,7 +18,7 @@ public interface NewsService {
 	public NewsResponse deleteTags(List<Tags> tagsList);
 	
 	// 編輯消息
-	public NewsResponse updateTags(Integer newsNumber, String title, LocalDate updateDate, String tags, String content);
+	public NewsResponse updateNews(Integer newsNumber, String title, LocalDate updateDate, String tags, String content);
 
 	// 找所有消息
 	public NewsResponse findAllNews();

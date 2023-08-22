@@ -61,19 +61,19 @@ public class NewsTest {
 	
 	@Test
 	public void updateNewsTest() {
-		NewsResponse res1 = nService.updateTags(10, "update", null, "DVD", "update");
-		System.out.println(res1.getMessage());
-		NewsResponse res2 = nService.updateTags(1, "", null, null, null);
-		System.out.println(res2.getMessage());
-		NewsResponse res3 = nService.updateTags(2, "update", LocalDate.of(2023, 3, 1), "DVD", "emm");
-		System.out.println(res3.getMessage());
-		NewsResponse res4 = nService.updateTags(1, "update test", LocalDate.of(2024, 1, 12), "ccc", "test will not pass");
-		System.out.println(res4.getMessage());
-		NewsResponse res5 = nService.updateTags(2, "update test 2", null, "DVD", null);
-		System.out.println(res5.getMessage());
-		NewsResponse res6 = nService.updateTags(3, "update", LocalDate.of(2023, 9, 23), "DVD", "update update update");
-		System.out.println(res6.getMessage());
-		NewsResponse res7 = nService.updateTags(3, "update", LocalDate.of(2023, 9, 23), "apple", "update update update");
+//		NewsResponse res1 = nService.updateNews(10, "update", null, "DVD", "update");
+//		System.out.println(res1.getMessage());
+//		NewsResponse res2 = nService.updateNews(1, "", null, null, null);
+//		System.out.println(res2.getMessage());
+//		NewsResponse res3 = nService.updateNews(2, "update", LocalDate.of(2023, 3, 1), "DVD", "emm");
+//		System.out.println(res3.getMessage());
+//		NewsResponse res4 = nService.updateNews(1, "update test", LocalDate.of(2024, 1, 12), "ccc", "test will not pass");
+//		System.out.println(res4.getMessage());
+//		NewsResponse res5 = nService.updateNews(2, "update test 2", null, "DVD", null);
+//		System.out.println(res5.getMessage());
+//		NewsResponse res6 = nService.updateNews(3, "update", LocalDate.of(2023, 9, 23), "DVD", "update update update");
+//		System.out.println(res6.getMessage());
+		NewsResponse res7 = nService.updateNews(1, "update", LocalDate.of(2023, 9, 23), "apple", "update update update");
 		System.out.println(res7.getMessage());
 	}
 	

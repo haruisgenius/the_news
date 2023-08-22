@@ -170,7 +170,7 @@ public class NewsServiceImpl implements NewsService {
 	
 	// 編輯消息
 	@Override
-	public NewsResponse updateTags(Integer newsNumber, String title, LocalDate updateDate, String tags,
+	public NewsResponse updateNews(Integer newsNumber, String title, LocalDate updateDate, String tags,
 			String content) {
 
 		// 從資料庫撈出消息，檢查有無此消息
@@ -218,6 +218,7 @@ public class NewsServiceImpl implements NewsService {
 			return new NewsResponse(RtnCode.NOT_FOUND.getMessage());
 		}
 		
+		// TODO
 		// 處理標籤文章數
 		for(Tags allTag : allTagsList) {
 			// 舊標籤文章數-1

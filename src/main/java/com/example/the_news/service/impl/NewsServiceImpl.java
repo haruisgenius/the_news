@@ -298,7 +298,7 @@ public class NewsServiceImpl implements NewsService {
 			String line;
 			while((line = br.readLine()) != null) {
 				// 將讀取內容存進content內並加入換行
-				content.append(line).append("\r\n");
+				content.append(line).append("\n");
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

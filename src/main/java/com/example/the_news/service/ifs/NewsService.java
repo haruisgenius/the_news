@@ -26,5 +26,8 @@ public interface NewsService {
 	// 找所有標籤
 	public NewsResponse findAllTags();
 	
+	// 找消息
+	public NewsResponse findNews(Integer newsNumber);
+	
 	
 }

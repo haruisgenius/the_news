@@ -40,13 +40,18 @@ public class NewsController {
 	}
 	
 	@GetMapping(value = "find_all_news")
-	public NewsResponse findAllNews(@RequestBody NewsRequest nReq) {
+	public NewsResponse findAllNews() {
 		return newsService.findAllNews();
 	}
 	
 	@GetMapping(value = "find_all_tags")
-	public NewsResponse findAllTags(@RequestBody NewsRequest nReq) {
+	public NewsResponse findAllTags() {
 		return newsService.findAllTags();
+	}
+	
+	@PostMapping(value = "find_news")
+	public NewsResponse findNews(@RequestBody NewsRequest nReq) {
+		return newsService.findNews(nReq.getSerialNumber());
 	}
 	
 }

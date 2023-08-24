@@ -1,8 +1,10 @@
 package com.example.the_news.service.impl;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -268,7 +270,7 @@ public class NewsServiceImpl implements NewsService {
 	@Override
 	public NewsResponse findAllNews() {
 		// TODO Auto-generated method stub
-		return new NewsResponse(RtnCode.SUCCESSFUL.getMessage(), newsDao.findAll());
+		return new NewsResponse(RtnCode.SUCCESSFUL.getMessage(), newsDao.findByOrderByUpdateDateDesc());
 	}
 
 	
@@ -277,6 +279,38 @@ public class NewsServiceImpl implements NewsService {
 	public NewsResponse findAllTags() {
 		// TODO Auto-generated method stub
 		return new NewsResponse(tagsDao.findAll(), RtnCode.SUCCESSFUL.getMessage());
+	}
+
+	
+	// 找消息
+	@Override
+	public NewsResponse findNews(Integer newsNumber) {
+		// 使用消息代號找消息
+		Optional<News> newsOp = newsDao.findById(newsNumber);
+		if(!newsOp.isPresent()) {
+			return new NewsResponse(RtnCode.NOT_FOUND.getMessage());
+		}
+		News news = newsOp.get();
+		
+		StringBuilder content = new StringBuilder();
+		//  BufferedReader 使用readline() 方法讀取文本   尋找檔案("news裡儲存的檔案位置")
+		try (BufferedReader br = new BufferedReader(new FileReader(news.getContent()))) {
+			String line;
+			while((line = br.readLine()) != null) {
+				// 將讀取內容存進content內並加入換行
+				content.append(line).append("\r\n");
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		news.setContent(content.toString());
+		
+		return new NewsResponse(news, RtnCode.SUCCESSFUL.getMessage());
 	}
 	
 	

@@ -41,8 +41,7 @@ public class NewsServiceImpl implements NewsService {
 	public NewsResponse createNews(String title, LocalDate updateDate, String tags, String content) {
 		// 防呆: 輸入標題
 		if(!StringUtils.hasText(title)){
-//			return new NewsResponse("未輸入title");
-			return new NewsResponse("未輸入title");
+			return new NewsResponse(RtnCode.CANNOT_EMPTY.getMessage());
 		}
 		
 		// 檢查update date若為null > 當天
@@ -51,7 +50,7 @@ public class NewsServiceImpl implements NewsService {
 		}
 		// 檢查update date不可在今天之前
 		if(updateDate.isBefore(LocalDate.now())) {
-			return new NewsResponse("update date錯誤");
+			return new NewsResponse(RtnCode.INCORRECT.getMessage());
 		}
 		
 		// 檢查輸入的標籤是否存在
@@ -61,7 +60,7 @@ public class NewsServiceImpl implements NewsService {
 			allTagsStr.add(oldTag.getTags());
 		}
 		if(!allTagsStr.contains(tags)) {
-			return new NewsResponse("無此tags");
+			return new NewsResponse(RtnCode.NOT_FOUND.getMessage());
 		}
 		
 		// 檢查內容有無文字
@@ -100,18 +99,15 @@ public class NewsServiceImpl implements NewsService {
 	public NewsResponse createTags(String tag) {
 		// 防呆: 輸入標籤名稱
 		if(!StringUtils.hasText(tag)){
-//			return new NewsResponse("未輸入tags");
 			return new NewsResponse(RtnCode.CANNOT_EMPTY.getMessage());
 		}
 		
 		Tags newTag = new Tags(tag);
 		// 防呆: 資料庫已有此標籤
 		List<Tags> allTags = tagsDao.findAll();
-//		List<String> allTagStr = new ArrayList<>();
 		if(allTags.size() > 0){
 			for(Tags exiTag : allTags) {
 				if(exiTag.getTags().equals(tag)){
-//				return new NewsResponse("已有此tags");
 					return new NewsResponse(RtnCode.DATA_EXISTED.getMessage());
 				}
 			}
@@ -146,10 +142,7 @@ public class NewsServiceImpl implements NewsService {
 					// 否則將此標籤加入欲刪標籤清單 deleteTagsList
 					deleteTagsList.add(oldTags);
 				}
-				// 若equals不成立表無此標籤
-//				else {
-//					return new NewsResponse(RtnCode.NOT_FOUND.getMessage());
-//				}
+				
 			}
 		}
 		// 若過濾後的欲刪標籤清單長度為0，但與要求清單長度不符(預設皆符合刪除標準)，表要求清單中含不存在的標籤
@@ -157,12 +150,6 @@ public class NewsServiceImpl implements NewsService {
 			return new NewsResponse(RtnCode.NOT_FOUND.getMessage());
 		}
 		
-		// 刪除allTagsList中符合deleteTagsList內容的標籤
-//		for(Tags oldTag : allTagsList) {
-//			if(!deleteTagsList.contains(oldTag)) {
-//				finalTagsList.add(oldTag);
-//			}
-//		}
 		
 		tagsDao.deleteAll(deleteTagsList);
 		
@@ -220,7 +207,6 @@ public class NewsServiceImpl implements NewsService {
 			return new NewsResponse(RtnCode.NOT_FOUND.getMessage());
 		}
 		
-		// TODO
 		// 處理標籤文章數
 		for(Tags allTag : allTagsList) {
 			// 舊標籤文章數-1
